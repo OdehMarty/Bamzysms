@@ -119,21 +119,19 @@ export default function CTASection() {
             marginBottom: 40,
           }}
         >
-          <button
-            className="btn-ghost"
-            style={{ padding: '14px 28px', fontSize: '0.95rem' }}
-          >
-            <RiLoginBoxLine size={18} />
-            Log In
-          </button>
-          <button
-            className="btn-primary"
-            style={{ padding: '14px 28px', fontSize: '0.95rem' }}
-          >
-            <RiUserAddLine size={18} />
-            Create Account
-            <RiArrowRightLine size={16} />
-          </button>
+          <a href="/login" style={{ textDecoration: 'none' }}>
+            <button className="btn-ghost" style={{ padding: '14px 28px', fontSize: '0.95rem' }}>
+              <RiLoginBoxLine size={18} />
+              Log In
+            </button>
+          </a>
+          <a href="/register" style={{ textDecoration: 'none' }}>
+            <button className="btn-primary" style={{ padding: '14px 28px', fontSize: '0.95rem' }}>
+              <RiUserAddLine size={18} />
+              Create Account
+              <RiArrowRightLine size={16} />
+            </button>
+          </a>
         </div>
 
         {/* Divider */}

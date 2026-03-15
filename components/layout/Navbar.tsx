@@ -86,16 +86,16 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div style={{ display: 'flex', gap: 12, alignItems: 'center' }} className="desktop-nav">
-            <a href="#signup" onClick={(e) => handleNavClick(e, '#signup')} style={{ textDecoration: 'none' }}>
+            <Link href="/login" style={{ textDecoration: 'none' }}>
               <button className="btn-ghost" style={{ padding: '10px 20px', fontSize: '0.875rem' }}>
                 Log In
               </button>
-            </a>
-            <a href="#signup" onClick={(e) => handleNavClick(e, '#signup')} style={{ textDecoration: 'none' }}>
+            </Link>
+            <Link href="/register" style={{ textDecoration: 'none' }}>
               <button className="btn-primary" style={{ padding: '10px 20px', fontSize: '0.875rem' }}>
                 Sign Up Free
               </button>
-            </a>
+            </Link>
           </div>
 
           {/* Mobile hamburger */}
@@ -158,12 +158,16 @@ export default function Navbar() {
                 </a>
               ))}
               <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <button className="btn-ghost" style={{ padding: '13px', width: '100%', fontSize: '0.9rem' }}>
-                  Log In
-                </button>
-                <button className="btn-primary" style={{ padding: '13px', width: '100%', fontSize: '0.9rem' }}>
-                  Sign Up Free
-                </button>
+                <Link href="/login" style={{ textDecoration: 'none' }} onClick={() => setMobileMenuOpen(false)}>
+                  <button className="btn-ghost" style={{ padding: '13px', width: '100%', fontSize: '0.9rem' }}>
+                    Log In
+                  </button>
+                </Link>
+                <Link href="/register" style={{ textDecoration: 'none' }} onClick={() => setMobileMenuOpen(false)}>
+                  <button className="btn-primary" style={{ padding: '13px', width: '100%', fontSize: '0.9rem' }}>
+                    Sign Up Free
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
