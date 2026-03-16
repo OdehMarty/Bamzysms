@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/dashboard/Sidebar';
 import SupportFAB from '@/components/ui/SupportFAB';
@@ -9,46 +9,82 @@ import { useAppStore } from '@/store/appStore';
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, sidebarOpen, setSidebarOpen } = useAppStore();
   const router = useRouter();
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isAuthenticated) router.replace('/login');
   }, [isAuthenticated, router]);
 
-  // Close sidebar on mobile by default
+  // Close on mobile
   useEffect(() => {
-    if (window.innerWidth < 900) setSidebarOpen(false);
+    const check = () => {
+      if (window.innerWidth < 900) setSidebarOpen(false);
+    };
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, [setSidebarOpen]);
+
+  // Directly set margin on the DOM node — bypasses React SSR/hydration entirely
+  useEffect(() => {
+    if (!contentRef.current) return;
+    const isMobile = window.innerWidth < 900;
+    contentRef.current.style.marginLeft = (!isMobile && sidebarOpen) ? '260px' : '0px';
+  }, [sidebarOpen]);
 
   if (!isAuthenticated) return null;
 
   return (
-    <div className="dashboard-layout">
-      {/* Sidebar overlay on mobile */}
+    <>
+      <style>{`
+        .dash-sidebar {
+          position: fixed;
+          top: 0; left: 0; bottom: 0;
+          width: 260px;
+          z-index: 50;
+          background: var(--color-bg-2);
+          border-right: 1px solid var(--color-border);
+          overflow-y: auto;
+          transition: transform 0.28s ease;
+        }
+        .dash-content {
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          transition: margin-left 0.28s ease;
+        }
+        .mob-overlay {
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.5);
+          z-index: 49;
+        }
+        @media (max-width: 900px) {
+          .dash-content { margin-left: 0 !important; }
+          .mob-overlay { display: block; }
+        }
+      `}</style>
+
+      {/* Sidebar */}
+      <div
+        className="dash-sidebar"
+        style={{ transform: sidebarOpen ? 'translateX(0)' : 'translateX(-260px)' }}
+      >
+        <Sidebar />
+      </div>
+
+      {/* Mobile overlay */}
       {sidebarOpen && (
-        <div
-          onClick={() => setSidebarOpen(false)}
-          style={{
-            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)',
-            zIndex: 49, display: 'none',
-          }}
-          className="sidebar-overlay"
-        />
+        <div className="mob-overlay" onClick={() => setSidebarOpen(false)} />
       )}
 
-      <Sidebar />
-
-      <div className={`main-content`} style={{ marginLeft: sidebarOpen ? 260 : 0, transition: 'margin-left 0.3s ease' }}>
+      {/* Content — margin set directly via useEffect ref */}
+      <div ref={contentRef} className="dash-content">
         {children}
       </div>
 
       <SupportFAB />
-
-      <style>{`
-        @media (max-width: 900px) {
-          .main-content { margin-left: 0 !important; }
-          .sidebar-overlay { display: block !important; }
-        }
-      `}</style>
-    </div>
+    </>
   );
 }

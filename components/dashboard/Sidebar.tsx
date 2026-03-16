@@ -29,20 +29,26 @@ const HISTORY_ITEMS = [
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { logout, user, sidebarOpen } = useAppStore();
+  const { logout, user, setSidebarOpen } = useAppStore();
 
   const handleLogout = () => {
     logout();
     router.push('/login');
   };
 
+  // Close sidebar on mobile after nav click
+  const handleNavClick = () => {
+    if (window.innerWidth < 900) setSidebarOpen(false);
+  };
+
   return (
-    <aside className={`sidebar ${sidebarOpen ? '' : 'sidebar-collapsed'}`}>
+    <aside style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       {/* Brand */}
       <div style={{
         padding: '20px 16px 16px',
         borderBottom: '1px solid var(--color-border)',
         display: 'flex', alignItems: 'center', gap: 10,
+        flexShrink: 0,
       }}>
         <div style={{
           width: 36, height: 36, borderRadius: 10, flexShrink: 0,
@@ -59,10 +65,7 @@ export default function Sidebar() {
 
       {/* User info */}
       {user && (
-        <div style={{
-          padding: '14px 16px',
-          borderBottom: '1px solid var(--color-border)',
-        }}>
+        <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--color-border)', flexShrink: 0 }}>
           <div style={{
             display: 'flex', alignItems: 'center', gap: 10,
             padding: '10px 12px', borderRadius: 10,
@@ -93,7 +96,7 @@ export default function Sidebar() {
       <nav style={{ flex: 1, padding: '12px 10px', overflowY: 'auto' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {NAV_ITEMS.map((item) => (
-            <Link key={item.href} href={item.href} style={{ textDecoration: 'none' }}>
+            <Link key={item.href} href={item.href} style={{ textDecoration: 'none' }} onClick={handleNavClick}>
               <div className={`sidebar-item ${pathname === item.href ? 'active' : ''}`}>
                 {item.icon}
                 {item.label}
@@ -105,7 +108,7 @@ export default function Sidebar() {
         <div className="sidebar-group-label">History</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {HISTORY_ITEMS.map((item) => (
-            <Link key={item.href} href={item.href} style={{ textDecoration: 'none' }}>
+            <Link key={item.href} href={item.href} style={{ textDecoration: 'none' }} onClick={handleNavClick}>
               <div className={`sidebar-item ${pathname === item.href ? 'active' : ''}`}>
                 {item.icon}
                 {item.label}
