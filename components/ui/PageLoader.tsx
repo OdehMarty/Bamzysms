@@ -14,35 +14,27 @@ export default function PageLoader() {
   if (!visible) return null;
 
   return (
-    <div
-      style={{
-        position: 'fixed', inset: 0,
-        background: 'var(--color-bg)',
-        display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center',
-        gap: 20, zIndex: 9999,
-        animation: visible ? 'none' : 'fadeOut 0.3s ease forwards',
-      }}
-    >
-      {/* Logo mark */}
+    <div style={{
+      position: 'fixed', inset: 0,
+      background: '#fff',
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
+      gap: 20, zIndex: 9999,
+    }}>
       <div style={{
         width: 64, height: 64, borderRadius: 16,
-        background: 'linear-gradient(135deg, var(--color-primary), #0EA5E9)',
+        background: 'linear-gradient(135deg, #1A73E8, #7C3AED)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        boxShadow: '0 0 32px var(--color-primary-glow)',
+        boxShadow: '0 8px 32px rgba(26,115,232,0.3)',
       }}>
-        <RiSignalTowerFill size={32} color="#000" />
+        <RiSignalTowerFill size={32} color="#fff" />
       </div>
-
-      {/* Brand name */}
       <div style={{
-        fontFamily: 'var(--font-display)', fontWeight: 800,
-        fontSize: '1.3rem', letterSpacing: '-0.03em', color: 'var(--color-text)',
+        fontFamily: 'Poppins, sans-serif', fontWeight: 800,
+        fontSize: '1.3rem', letterSpacing: '-0.02em', color: '#111827',
       }}>
-        bamzy<span style={{ color: 'var(--color-primary)' }}>SMS</span>
+        bamzy<span style={{ color: '#1A73E8' }}>SMS</span>
       </div>
-
-      {/* Bouncing dots */}
       <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
         <div className="loader-dot" />
         <div className="loader-dot" />
@@ -51,3 +43,4 @@ export default function PageLoader() {
     </div>
   );
 }
+
