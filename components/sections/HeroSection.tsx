@@ -1,12 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import {
-  RiShieldCheckLine,
-  RiArrowRightLine,
-  RiLockPasswordLine,
-  RiMailLine,
-} from 'react-icons/ri';
+import { RiShieldCheckLine, RiArrowRightLine, RiLockPasswordLine, RiMailLine } from 'react-icons/ri';
 import { useAppStore } from '@/store/appStore';
 
 const STATS = [
@@ -36,182 +31,123 @@ export default function HeroSection() {
   };
 
   return (
-    <section
-      id="home"
-      ref={sectionRef}
-      className="grid-bg"
+    <section id="home" ref={sectionRef} className="grid-bg hero-section"
       style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-        paddingTop: 120,
-        paddingBottom: 96,
-        paddingLeft: 24,
-        paddingRight: 24,
-      }}
-    >
-      {/* Glow orbs */}
+        minHeight: '100vh', display: 'flex', alignItems: 'center',
+        justifyContent: 'center', position: 'relative', overflow: 'hidden',
+        paddingTop: 100, paddingBottom: 80, paddingLeft: 20, paddingRight: 20,
+      }}>
+
+      {/* Soft glow orbs */}
       <div style={{
-        position: 'absolute', top: '20%', left: '10%',
-        width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(0,229,255,0.07) 0%, transparent 70%)',
+        position: 'absolute', top: '15%', left: '5%',
+        width: 400, height: 400, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(26,115,232,0.07) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
       <div style={{
         position: 'absolute', bottom: '10%', right: '5%',
-        width: 400, height: 400, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)',
+        width: 350, height: 350, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
       <div style={{ maxWidth: 760, width: '100%', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-
-        {/* Badge */}
-        <div className="animate-fade-up" style={{ display: 'flex', justifyContent: 'center', marginBottom: 28 }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
           <span className="badge badge-primary">
             <RiShieldCheckLine size={13} />
             Nigeria&apos;s #1 Virtual SMS Platform
           </span>
         </div>
 
-        {/* Headline */}
-        <h1
-          className="animate-fade-up delay-100"
-          style={{
-            fontSize: 'clamp(2.6rem, 6vw, 4.5rem)',
-            fontWeight: 800,
-            lineHeight: 1.05,
-            marginBottom: 24,
-            color: 'var(--color-text)',
-          }}
-        >
+        <h1 style={{
+          fontSize: 'clamp(2.2rem, 6vw, 4.2rem)', fontWeight: 800,
+          lineHeight: 1.1, marginBottom: 20, color: 'var(--color-text)',
+        }}>
           Protect Your{' '}
           <span className="gradient-text">Identity.</span>
-          <br />
-          Verify Instantly.
+          <br />Verify Instantly.
         </h1>
 
-        {/* Subheading */}
-        <p
-          className="animate-fade-up delay-200"
-          style={{
-            fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-            color: 'var(--color-text-muted)',
-            lineHeight: 1.7,
-            maxWidth: 560,
-            margin: '0 auto 48px',
-          }}
-        >
+        <p style={{
+          fontSize: 'clamp(0.95rem, 2.5vw, 1.15rem)',
+          color: 'var(--color-text-muted)', lineHeight: 1.7,
+          maxWidth: 540, margin: '0 auto 40px',
+        }}>
           Buy premium virtual phone numbers for OTP verification on Telegram, WhatsApp,
-          Instagram & more. Stay anonymous, stay safe — starting from just{' '}
+          Instagram & more. Starting from just{' '}
           <strong style={{ color: 'var(--color-primary)', fontWeight: 600 }}>₦2,000</strong>.
         </p>
 
-        {/* Email signup form */}
-        <form
-          id="signup"
-          onSubmit={handleSubmit}
-          className="animate-fade-up delay-300"
-          style={{
-            display: 'flex',
-            gap: 12,
-            maxWidth: 480,
-            margin: '0 auto 20px',
-            flexWrap: 'wrap',
-          }}
-        >
+        {/* Email form */}
+        <form id="signup" onSubmit={handleSubmit} className="hero-form"
+          style={{ display: 'flex', gap: 10, maxWidth: 460, margin: '0 auto 16px', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, minWidth: 200, position: 'relative' }}>
             <span style={{
-              position: 'absolute', left: 14, top: '50%',
-              transform: 'translateY(-50%)',
-              color: 'var(--color-text-faint)',
-              pointerEvents: 'none', display: 'flex', zIndex: 1,
+              position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)',
+              color: 'var(--color-text-faint)', pointerEvents: 'none', display: 'flex', zIndex: 1,
             }}>
               <RiMailLine size={17} />
             </span>
-            <input
-              type="email"
-              className="input-field"
-              placeholder="Enter your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              style={{ paddingLeft: 44 }}
-            />
+            <input type="email" className="input-field" placeholder="Enter your email"
+              value={email} onChange={(e) => setEmail(e.target.value)}
+              required style={{ paddingLeft: 42 }} />
           </div>
-          <button
-            type="submit"
-            className="btn-primary"
-            style={{ padding: '14px 24px', fontSize: '0.9rem', whiteSpace: 'nowrap' }}
-          >
-            Sign Up Free
-            <RiArrowRightLine size={16} />
+          <button type="submit" className="btn-primary"
+            style={{ padding: '13px 22px', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+            Sign Up Free <RiArrowRightLine size={16} />
           </button>
         </form>
 
-        {/* Trust note */}
-        <p
-          className="animate-fade-up delay-400"
-          style={{
-            color: 'var(--color-text-faint)',
-            fontSize: '0.8rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 6,
-            marginBottom: 64,
-          }}
-        >
+        <p style={{
+          color: 'var(--color-text-faint)', fontSize: '0.78rem',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          gap: 6, marginBottom: 56,
+        }}>
           <RiLockPasswordLine size={13} />
           No spam. Unsubscribe anytime. 100% secure.
         </p>
 
         {/* Stats strip */}
-        <div
-          className="animate-fade-up delay-500"
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: 'clamp(24px, 5vw, 56px)',
-            flexWrap: 'wrap',
-            padding: '32px 24px',
-            borderRadius: 'var(--radius-xl)',
-            background: 'rgba(255,255,255,0.02)',
-            border: '1px solid var(--color-border)',
-          }}
-        >
+        <div className="stats-strip" style={{
+          display: 'flex', justifyContent: 'center',
+          gap: 'clamp(16px, 4vw, 48px)', flexWrap: 'wrap',
+          padding: '28px 20px', borderRadius: 'var(--radius-xl)',
+          background: '#fff', border: '1px solid var(--color-border)',
+          boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+        }}>
           {STATS.map((stat, i) => (
             <React.Fragment key={stat.label}>
-              <div style={{ textAlign: 'center' }}>
+              <div style={{ textAlign: 'center', minWidth: 60 }}>
                 <div style={{
-                  fontFamily: 'var(--font-display)',
-                  fontWeight: 800,
-                  fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                  color: 'var(--color-text)',
-                  lineHeight: 1,
-                  marginBottom: 6,
+                  fontFamily: 'var(--font-display)', fontWeight: 800,
+                  fontSize: 'clamp(1.4rem, 3vw, 1.9rem)', color: '#1A73E8',
+                  lineHeight: 1, marginBottom: 5,
                 }}>
                   {stat.value}
                 </div>
-                <div style={{ color: 'var(--color-text-faint)', fontSize: '0.75rem', letterSpacing: '0.04em' }}>
+                <div style={{ color: 'var(--color-text-faint)', fontSize: '0.72rem', letterSpacing: '0.04em' }}>
                   {stat.label}
                 </div>
               </div>
               {i < STATS.length - 1 && (
-                <div style={{
-                  width: 1,
-                  background: 'var(--color-border)',
-                  alignSelf: 'stretch',
-                  display: 'block',
-                }} />
+                <div style={{ width: 1, background: 'var(--color-border)', alignSelf: 'stretch' }}
+                  className="stat-divider" />
               )}
             </React.Fragment>
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 480px) {
+          .hero-form { flex-direction: column; }
+          .hero-form input, .hero-form button { width: 100%; }
+          .stat-divider { display: none; }
+          .stats-strip { gap: 20px !important; }
+        }
+      `}</style>
     </section>
   );
 }
+
