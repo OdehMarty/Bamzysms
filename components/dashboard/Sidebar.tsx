@@ -56,7 +56,7 @@ export default function Sidebar() {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           boxShadow: '0 0 12px var(--color-primary-glow)',
         }}>
-          <RiSignalTowerFill size={18} color="#000" />
+          <RiSignalTowerFill size={18} color="#fff" />
         </div>
         <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1rem' }}>
           bamzy<span style={{ color: 'var(--color-primary)' }}>SMS</span>
@@ -69,7 +69,7 @@ export default function Sidebar() {
           <div style={{
             display: 'flex', alignItems: 'center', gap: 10,
             padding: '10px 12px', borderRadius: 10,
-            background: 'rgba(255,255,255,0.03)',
+            background: 'var(--color-bg-hover)',
             border: '1px solid var(--color-border)',
           }}>
             <div style={{
