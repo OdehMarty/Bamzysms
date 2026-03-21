@@ -23,7 +23,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on resize
   useEffect(() => {
     const handleResize = () => { if (window.innerWidth > 768) setMobileMenuOpen(false); };
     window.addEventListener('resize', handleResize);
@@ -39,45 +38,30 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 100,
-          transition: 'all 0.3s ease',
-          background: scrolled ? 'rgba(8,12,20,0.92)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(16px)' : 'none',
-          borderBottom: scrolled ? '1px solid var(--color-border)' : '1px solid transparent',
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: '0 auto',
-            padding: '0 24px',
-            height: 72,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
+      <nav style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+        transition: 'all 0.3s ease',
+        background: scrolled ? 'rgba(255,255,255,0.95)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        borderBottom: scrolled ? '1px solid var(--color-border)' : '1px solid transparent',
+        boxShadow: scrolled ? '0 1px 8px rgba(0,0,0,0.06)' : 'none',
+      }}>
+        <div style={{
+          maxWidth: 1200, margin: '0 auto', padding: '0 24px',
+          height: 68, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        }}>
           <Link href="/" style={{ textDecoration: 'none' }}>
             <Logo size="md" />
           </Link>
 
           {/* Desktop nav */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 40 }} className="desktop-nav">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 36 }} className="desk-nav">
             {NAV_LINKS.map((link) => {
               const sectionId = link.href.replace('#', '');
               return (
-                <a
-                  key={link.href}
-                  href={link.href}
+                <a key={link.href} href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`nav-link ${activeSection === sectionId ? 'active' : ''}`}
-                >
+                  className={`nav-link ${activeSection === sectionId ? 'active' : ''}`}>
                   {link.label}
                 </a>
               );
@@ -85,88 +69,52 @@ export default function Navbar() {
           </div>
 
           {/* Desktop CTA */}
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }} className="desktop-nav">
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }} className="desk-nav">
             <Link href="/login" style={{ textDecoration: 'none' }}>
-              <button className="btn-ghost" style={{ padding: '10px 20px', fontSize: '0.875rem' }}>
-                Log In
-              </button>
+              <button className="btn-ghost" style={{ padding: '9px 20px', fontSize: '0.875rem' }}>Log In</button>
             </Link>
             <Link href="/register" style={{ textDecoration: 'none' }}>
-              <button className="btn-primary" style={{ padding: '10px 20px', fontSize: '0.875rem' }}>
-                Sign Up Free
-              </button>
+              <button className="btn-primary" style={{ padding: '9px 20px', fontSize: '0.875rem' }}>Sign Up Free</button>
             </Link>
           </div>
 
           {/* Mobile hamburger */}
-          <button
-            className="mobile-menu-btn"
-            onClick={toggleMobileMenu}
-            aria-label="Toggle menu"
+          <button onClick={toggleMobileMenu} aria-label="Toggle menu"
+            className="mob-menu-btn"
             style={{
-              background: 'none',
-              border: '1px solid var(--color-border)',
-              borderRadius: 10,
-              padding: '8px',
-              cursor: 'pointer',
-              color: 'var(--color-text)',
-              display: 'none',
-            }}
-          >
+              background: 'none', border: '1px solid var(--color-border)',
+              borderRadius: 10, padding: '8px', cursor: 'pointer',
+              color: 'var(--color-text)', display: 'none',
+            }}>
             {mobileMenuOpen ? <RiCloseLine size={22} /> : <RiMenu3Line size={22} />}
           </button>
         </div>
 
         {/* Mobile menu */}
         {mobileMenuOpen && (
-          <div
-            style={{
-              background: 'rgba(8,12,20,0.97)',
-              backdropFilter: 'blur(20px)',
-              borderTop: '1px solid var(--color-border)',
-              padding: '20px 24px 28px',
-              animation: 'fadeUp 0.25s ease',
-            }}
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <div style={{
+            background: '#fff', borderTop: '1px solid var(--color-border)',
+            padding: '16px 20px 24px', animation: 'fadeUp 0.2s ease',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+          }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {NAV_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
+                <a key={link.href} href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
                   style={{
-                    display: 'block',
-                    padding: '13px 16px',
-                    borderRadius: 10,
-                    color: 'var(--color-text-muted)',
-                    fontFamily: 'var(--font-display)',
-                    fontWeight: 500,
-                    fontSize: '0.95rem',
-                    textDecoration: 'none',
-                    transition: 'all 0.2s',
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.color = 'var(--color-text)';
-                    (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.color = 'var(--color-text-muted)';
-                    (e.currentTarget as HTMLElement).style.background = 'transparent';
-                  }}
-                >
+                    display: 'block', padding: '12px 14px', borderRadius: 10,
+                    color: 'var(--color-text-muted)', fontWeight: 500,
+                    fontSize: '0.95rem', textDecoration: 'none', transition: 'all 0.2s',
+                  }}>
                   {link.label}
                 </a>
               ))}
-              <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <Link href="/login" style={{ textDecoration: 'none' }} onClick={() => setMobileMenuOpen(false)}>
-                  <button className="btn-ghost" style={{ padding: '13px', width: '100%', fontSize: '0.9rem' }}>
-                    Log In
-                  </button>
+                  <button className="btn-ghost" style={{ padding: '12px', width: '100%', fontSize: '0.9rem' }}>Log In</button>
                 </Link>
                 <Link href="/register" style={{ textDecoration: 'none' }} onClick={() => setMobileMenuOpen(false)}>
-                  <button className="btn-primary" style={{ padding: '13px', width: '100%', fontSize: '0.9rem' }}>
-                    Sign Up Free
-                  </button>
+                  <button className="btn-primary" style={{ padding: '12px', width: '100%', fontSize: '0.9rem' }}>Sign Up Free</button>
                 </Link>
               </div>
             </div>
@@ -176,8 +124,8 @@ export default function Navbar() {
 
       <style>{`
         @media (max-width: 768px) {
-          .desktop-nav { display: none !important; }
-          .mobile-menu-btn { display: flex !important; }
+          .desk-nav { display: none !important; }
+          .mob-menu-btn { display: flex !important; }
         }
       `}</style>
     </>
